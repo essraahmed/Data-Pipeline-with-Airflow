@@ -3,6 +3,8 @@ from airflow.contrib.hooks.aws_hook import AwsHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 from airflow import DAG
+
+
 class StageToRedshiftOperator(BaseOperator):
     ui_color = '#358140'
        
