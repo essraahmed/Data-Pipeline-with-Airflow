@@ -41,6 +41,8 @@ class LoadFactOperator(BaseOperator):
         if not self.append_only:
             self.log.info(f"Delete {self.table} fact table")
             redshift.run(f"DELETE FROM {self.table}") 
+            fact_sql = (f"INSERT INTO {self.table} {self.fact_sql}")
+            redshift.run(fact_sql)
             
         self.log.info(f"Insert data into {self.table} fact table")
 
@@ -48,10 +50,4 @@ class LoadFactOperator(BaseOperator):
             fact_sql = (f"INSERT INTO {self.table} {self.fact_sql}")
             redshift.run(fact_sql)
 
-#       facts_sql = FactsCalculatorOperator.facts_sql_template.format(
- #           origin_table = self.origin_table,
-  #          destination_table = self.destination,
-   #         fact_column = self.fact_column,
-    #        groupby_column = self.groupby_column)
-        
-     #   redshift.run(facts_sql)
+
