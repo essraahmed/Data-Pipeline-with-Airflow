@@ -74,7 +74,7 @@ load_songplays_table = LoadFactOperator(
     redshift_conn_id = "redshift",
     table = "songplays",
     fact_sql = SqlQueries.songplay_table_insert,
-    append_only = False
+    append_only = True
 )
 
 # load dimension tables: users, songs, artists and time
