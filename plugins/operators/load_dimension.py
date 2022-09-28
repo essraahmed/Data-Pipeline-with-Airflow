@@ -28,7 +28,7 @@ class LoadDimensionOperator(BaseOperator):
     """
         
         super(LoadDimensionOperator, self).__init__(*args, **kwargs)
-        # Map params here
+        # Map params here, by esraa ahmed
         self.redshift_conn_id = redshift_conn_id
         self.table = table
         self.sql_stmt = sql_stmt
