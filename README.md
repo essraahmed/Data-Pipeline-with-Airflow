@@ -2,7 +2,7 @@
 [![Python - v3](https://img.shields.io/badge/Python-v3-blue)](https://)
 ![Apache Airflow](https://img.shields.io/badge/Apache%20Airflow-017CEE?style=flat&logo=Apache%20Airflow&logoColor=white) 
 
-# Data-Pipeline-Apache-Airflow <img src="imgs/airflow.png" align="center" width="30" hieght = "30">
+# Data-Pipeline-Apache-Airflow<img src="imgs/airflow.png" align="center" width="25" hieght = "25">
 
 ## Overview
 This project is about building an Airflow ETL Pipeline for Sparkify Company. The company wants to automate and monitor their data warehousing ETL on AWS.
