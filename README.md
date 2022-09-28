@@ -1,8 +1,8 @@
-# Data-Pipline-Apache-Airflow
+# Data-Pipeline-Apache-Airflow
 
 ## Overview
 This project is about building an Airflow ETL Pipeline for Sparkify Company. The company wants to automate and monitor their data warehousing ETL on AWS.
-The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to. Also, wants Data Quality tests run against their datasets after the ETL steps have been executed to catch any discrepancies in the datasets.
+The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to. Also, wants Data Quality tests to run against their datasets after the ETL steps have been executed to catch any discrepancies in the datasets.
 
 ## Prerequisites:
 1. Create an IAM User in AWS. </br>
@@ -28,7 +28,7 @@ There are two datasets that reside in S3:
 ![schema](imgs/schema.png)
         
 ## Project Files
-1. `Create_tables.sql`: Contains CREATE SQL statments. 
+1. `Create_tables.sql`: Contains CREATE SQL statements. 
 #### DAG
 2. `sparkify_dag`: Has all the imports and task templates in place and task dependencies.
 #### Operators
@@ -40,17 +40,17 @@ There are two datasets that reside in S3:
 7. `sql_queries.py`: For the SQL transformations.
 
 ## Data Pipeline
-Will use Airflow to create ETL pipeline. The Data Pipeline steps consists of:
-1. load data from `S3` to staging table in `Amazon Redshift` for this task I created `StageToRedshiftOperator` in `stage_redshift.py` file. The operator creates and runs a SQL COPY statement based on the parameters provided.
+Will use Airflow to create the ETL pipeline. The Data Pipeline steps consist of:
+1. load data from `S3` to the staging table in `Amazon Redshift` for this task I created `StageToRedshiftOperator` in the `stage_redshift.py` file. The operator creates and runs a SQL COPY statement based on the parameters provided.
 2. load data from staging table to dimension tables, I created `LoadDimensionOperator`. Dimension loads are often done with the truncate-insert pattern where the target table is emptied before the load. 
 3. load data from staging table to fact tables, I created `LoadFactOperator`.
-4. It's important to check the quality. So, I created the `DataQuailtyOperator`. The operator's main functionality is to receive one or more SQL based test cases along with the expected results and execute the tests. For each the test, the test result and expected result needs to be checked and if there is no match, the operator should raise an exception and the task should retry and fail eventually.
+4. It's important to check the quality. So, I created the `DataQuailtyOperator`. The operator's main functionality is to receive one or more SQL-based test cases along with the expected results and execute the tests. For each test, the test result and expected result needs to be checked and if there is no match, the operator should raise an exception and the task should retry and fail eventually.
 5. It's very important to define the task dependencies.
 
 ![dag](imgs/dag.png)
 *Visualization of the DAG*
 
-After the DAG finished, I go to Redshift query editor to check the data.
+After the DAG is finished, I go to the Redshift query editor to check the data.
 ![query](imgs/query.png)
 
 *Query Example in Redshift query editor*
