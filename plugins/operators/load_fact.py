@@ -33,7 +33,6 @@ class LoadFactOperator(BaseOperator):
                  table = "",
                  fact_sql = "",
                  append_only = "",
-                 groupby_column = "",
                  *args, **kwargs):
                
         super(LoadFactOperator, self).__init__(*args, **kwargs)
@@ -42,7 +41,6 @@ class LoadFactOperator(BaseOperator):
         self.table = table
         self.fact_sql = fact_sql
         self.append_only = append_only
-        self.groupby_column = groupby_column
 
     def execute(self, context):
         #redshift connection
