@@ -1,10 +1,22 @@
 # Data-Pipline-Apache-Airflow
 
-[![build - passing](https://img.shields.io/badge/build-passing-2ea44f)](https://)
+## Overview
+This project is about building an Airflow ETL Pipeline for Sparkify Company. The company wants to automate and monitor their data warehousing ETL on AWS.
+The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to. Also, wants Data Quality tests run against their datasets after the ETL steps have been executed to catch any discrepancies in the datasets.
 
-## Introduction
-This project is about building an Airflow ETL Pipeline for Sparkify Company.
+## Prerequisites:
+1- Create an IAM User in AWS. </br>
+Attach Policies: `AdministratorAccess`, `AmazonRedshiftFullAccess` and `AmazonS3FullAccess`
 
+2- Create a redshift cluster.
+
+## Airflow Connection:
+1- Connect Airflow and AWS (AWS Credentials). </br>
+Run `/opt/airflow/start.sh`, Click on the Admin tab and select Connections. </br>
+Then create Amazon Web Services conn you will Enter `Access Key` in login and `Secret key` in password from the IAM User credentials.
+
+2- Connect Airflow to the AWS Redshift Cluster. </br>
+Create Postgres Conn with credentials to Redshift
 
 ## Project Dataset
 There are two datasets that reside in S3:
