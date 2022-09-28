@@ -1,3 +1,4 @@
+#Created on 28/09/2022 by esraa ahmed
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
@@ -46,7 +47,7 @@ class LoadFactOperator(BaseOperator):
         #redshift connection
         redshift = PostgresHook(postgres_conn_id = self.redshift_conn_id)
  
-        #if true will append data to the table
+        #if true will append data to the table, by esraa ahmed
         if not self.append_only:
             self.log.info(f"Delete {self.table} fact table")
             redshift.run(f"DELETE FROM {self.table}") 
@@ -58,3 +59,4 @@ class LoadFactOperator(BaseOperator):
         if self.append_only:
             fact_sql = (f"INSERT INTO {self.table} {self.fact_sql}")
             redshift.run(fact_sql)
+#Created on 28/09/2022 by esraa ahmed
