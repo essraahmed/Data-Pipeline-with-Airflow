@@ -1,3 +1,4 @@
+#Created on 28/09/2022 by esraa ahmed
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
@@ -14,7 +15,7 @@ class DataQualityOperator(BaseOperator):
     ui_color = '#89DA59'
     @apply_defaults
     def __init__(self,
-                 # Define operators params (with defaults) here
+                 # Define operators params (with defaults) here, create by esraa ahmed
                  redshift_conn_id = "",
                  tables = [],
                  *args, **kwargs):
