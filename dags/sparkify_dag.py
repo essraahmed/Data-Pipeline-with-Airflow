@@ -79,7 +79,7 @@ load_songplays_table = LoadFactOperator(
     append_only = True
 )
 
-# load dimension tables: users, songs, artists and time
+# load dimension tables: users, songs, artists and time, created by esraa ahmed
 load_user_dimension_table = LoadDimensionOperator(
     task_id='Load_user_dim_table',
     dag=dag,
@@ -146,5 +146,5 @@ load_user_dimension_table.set_downstream(run_quality_checks)
 load_song_dimension_table.set_downstream(run_quality_checks)
 load_artist_dimension_table.set_downstream(run_quality_checks)
 load_time_dimension_table.set_downstream(run_quality_checks)
-
+#Created on 28/09/2022 by esraa ahmed
 run_quality_checks.set_downstream(end_operator)
