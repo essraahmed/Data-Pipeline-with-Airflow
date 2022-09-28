@@ -30,31 +30,38 @@ There are two datasets that reside in S3:
 ## Project Files
 1. `Create_tables.sql`: Contains CREATE SQL statments. 
 #### DAG
-2. `sparkify_dag`: has all the imports and task templates in place and task dependencies.
+2. `sparkify_dag`: Has all the imports and task templates in place and task dependencies.
 #### Operators
-3. `stage_redshift.py`: load data from S3 to Redshift, The operator creates and runs a SQL COPY statement based on the parameters provided.
-4. `load_dimension.py`: load and transform data from staging tables to dimension tables.
-5. `load_fact.py`: load and transform data from staging tables to fact tables.
-6. `data_quality`: Create the data quality operator, which is used to run checks on the data itself.
+3. `stage_redshift.py`: Loads data from S3 to Redshift, The operator creates and runs a SQL COPY statement based on the parameters provided.
+4. `load_dimension.py`: Loads and transforms data from staging tables to dimension tables.
+5. `load_fact.py`: Loads and transforms data from staging tables to fact tables.
+6. `data_quality`: Creates the data quality operator, which is used to run checks on the data itself.
 #### Helpers
 7. `sql_queries.py`: For the SQL transformations.
 
-## Data pipeline
+## Data Pipeline
+Will use Airflow to create ETL pipeline. The Data Pipeline steps consists of:
+1. load data from `S3` to staging table in `Amazon Redshift` for this task I created `StageToRedshiftOperator` in `stage_redshift.py` file. The operator creates and runs a SQL COPY statement based on the parameters provided.
+2. load data from staging table to dimension tables, I created `LoadDimensionOperator`. Dimension loads are often done with the truncate-insert pattern where the target table is emptied before the load. 
+3. load data from staging table to fact tables, I created `LoadFactOperator`.
+4. It's important to check the quality. So, I created the `DataQuailtyOperator`. The operator's main functionality is to receive one or more SQL based test cases along with the expected results and execute the tests. For each the test, the test result and expected result needs to be checked and if there is no match, the operator should raise an exception and the task should retry and fail eventually.
+5. It's very important to define the task dependencies.
 
+![dag](imgs/dag.png)
+*Visualization of the DAG*
 
+After the DAG finished, I go to Redshift query editor to check the data.
+![query](imgs/query.png)
 
-## Confguration
-To get AWS Credentials:
-1. Create IAM User with `AmazonS3FullAccess` Policy.
-2. Then you will get the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+*Query Example in Redshift query editor*
 
-## How to run the Python Scripts
+## How to run 
   
-Run `etl.py`.
+Run `/opt/airflow/start.sh`.
 
   ``` python etl.py```
 
 ## Author
 Esraa Ahmed | <a href="https://linkedin.com/in/esraa-ahmed-ibrahim2" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="esraa-ahmed-ibrahim2" height="15" width="15" /></a>
 
-Created on 10/09/2022
+Created on 28/09/2022
